@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
+import CardList from './CardList';
+import { restaurants } from './restaurants';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      restaurants: restaurants.restaurants
+    }
+  }
+
   render() {
+    const filteredRestaurants = this.state.restaurants;
+    console.log(filteredRestaurants);
     return (
       <div className="App">
         <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          test
+          <CardList />
         </header>
       </div>
     );
