@@ -5,13 +5,12 @@ const CardList = ({ restaurants }) => {
     // console.log(restaurants);
     return (
         <div>
-            <h2>CardList</h2>
             {
                 restaurants.map((item, i) => {
                     // console.log(item);
                     const arestaurant = item.restaurant;
                     return (
-                        <div>
+                        <div className="fl w-third pa2">
                             <Card
                                 key={arestaurant.id.toString()}
                                 keyshow={arestaurant.id.toString()}

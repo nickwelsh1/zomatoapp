@@ -15,7 +15,7 @@ class App extends Component {
     const filteredRestaurants = this.state.restaurants;
     // console.log(filteredRestaurants);
     return (
-      <div className="App">
+      <div className="App tc">
         <header className="App-header">
           <h1>my restaurants app</h1>
         </header>
