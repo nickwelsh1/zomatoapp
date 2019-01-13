@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Card = ({ restaurant, id }) => { //destructuring to create simple properties
+const Card = ({count, name, keyshow}) => { //destructuring to create simple properties
     return (
-        <div >
-            <h2>card</h2>
+        <div>
+            <p>{count}</p>
+            <p>{name}</p>
+            <p>{keyshow}</p>
         </div>
     );
 }

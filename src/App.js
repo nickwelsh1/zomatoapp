@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
 import { restaurants } from './restaurants';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   constructor() {
@@ -13,16 +13,27 @@ class App extends Component {
 
   render() {
     const filteredRestaurants = this.state.restaurants;
-    console.log(filteredRestaurants);
+    // console.log(filteredRestaurants);
     return (
       <div className="App">
         <header className="App-header">
-          test
-          <CardList />
+          <h1>my restaurants app</h1>
         </header>
+        <main className="App-main">
+          <CardList restaurants={filteredRestaurants} />
+        </main>
+        <footer className="App-footer">
+          <p>by Nick Welsh</p>
+        </footer>
       </div>
     );
   }
 }
 
 export default App;
+
+
+//TODO: display cards with some data
+// style cards
+// create fetch request to get data direct from API
+// store data in local storage to reduce API requests

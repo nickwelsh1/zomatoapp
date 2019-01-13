@@ -1,13 +1,27 @@
 import React from 'react';
 import Card from './Card';
 
-const CardList = ({ restaurant }) => {
+const CardList = ({ restaurants }) => {
+    // console.log(restaurants);
     return (
         <div>
             <h2>CardList</h2>
-            <Card />
-            <Card />
-            <Card />
+            {
+                restaurants.map((item, i) => {
+                    // console.log(item);
+                    const arestaurant = item.restaurant;
+                    return (
+                        <div>
+                            <Card
+                                key={arestaurant.id.toString()}
+                                keyshow={arestaurant.id.toString()}
+                                count={i+1}
+                                name={arestaurant.name}
+                            />
+                        </div>
+                    )
+                })
+            }
         </div>
     );
 }
