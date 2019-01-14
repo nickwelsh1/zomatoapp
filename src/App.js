@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
+import SearchBox from './SearchBox';
 import { restaurants } from './restaurants';
 import './App.scss';
 
@@ -7,7 +8,10 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      restaurants: restaurants.restaurants
+      restaurants: restaurants.restaurants,
+      searchcategory: '',
+      searchcuisine: '',
+      searchfield: ''
     }
   }
 
@@ -15,9 +19,9 @@ class App extends Component {
     const filteredRestaurants = this.state.restaurants;
     // console.log(filteredRestaurants);
     return (
-      <div className="App tc">
+      <div className="App">
         <header className="App-header">
-          <h1>my restaurants app</h1>
+          <SearchBox searchChange={this.onSearchChange} />
         </header>
         <main className="App-main">
           <CardList restaurants={filteredRestaurants} />
@@ -33,7 +37,7 @@ class App extends Component {
 export default App;
 
 
-//TODO: display cards with some data
-// style cards
+//TODO: x display cards with some data
+// x style cards
 // create fetch request to get data direct from API
 // store data in local storage to reduce API requests
