@@ -1,0 +1,1 @@
+/_resources contains WIP files not yet integrated into the project or design reference images.

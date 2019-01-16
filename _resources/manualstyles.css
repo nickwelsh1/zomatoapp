@@ -1,0 +1,32 @@
+.container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.column {
+    border-radius: 0.5rem;
+}
+
+.fill {
+    background-color: darksalmon;
+    border-radius: 0.5rem;
+}
+
+.space {
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.c-main__list {
+    min-height: 30rem;
+}
+
+.footer {
+    /* padding: 0; */
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    background-color: darkgray;
+}
