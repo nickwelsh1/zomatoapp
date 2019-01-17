@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
+import DetailView from './DetailView';
 import SearchBox from './SearchBox';
 import { restaurants } from './restaurants';
 import './App.scss';
@@ -16,6 +17,7 @@ class App extends Component {
   }
 
   render() {
+    const restaurant = this.state.restaurants[0];
     const filteredRestaurants = this.state.restaurants;
     // console.log(filteredRestaurants);
     return (
@@ -25,6 +27,7 @@ class App extends Component {
         </header>
         <main className="App-main">
           <CardList restaurants={filteredRestaurants} />
+          <DetailView restaurants={restaurant} />
         </main>
         <footer className="App-footer">
           <p>by Nick Welsh</p>

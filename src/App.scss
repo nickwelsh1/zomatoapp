@@ -14,6 +14,9 @@ $md-lg: 914px;
 $lg: 1024px;
 $xl: 1800px;
 
+fieldset {
+  border: none;
+}
 
 .App-header {
   background-color: $primary-color;
@@ -22,7 +25,7 @@ $xl: 1800px;
   flex-direction: column;
   // align-items: center;
   // justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(6px + 2vmin);
   color: white;
 }
 
@@ -37,7 +40,20 @@ $xl: 1800px;
   color: white;
 }
 
+.three-columns {
+  // -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  // -moz-column-count: 2; /* Firefox */
+  // column-count: 2;
+  height: 9em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
 @media screen and (min-width: $md-lg) {
+  .App-header {
+    font-size: calc(6px + 1vmin);
+  }
   .App-main {
     font-size: calc(8px + 1vmin);
   }

@@ -4,7 +4,7 @@ import Card from './Card';
 const CardList = ({ restaurants }) => {
     // console.log(restaurants);
     return (
-        <div>
+        <div className="CardList">
             {
                 restaurants.map((item, i) => {
                     // console.log(item);
