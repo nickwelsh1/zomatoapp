@@ -3,7 +3,7 @@ import Checkbox from './Checkbox';
 
 
 
-const SearchBox = ({ searchfield, searchChange }) => {
+const SearchBox = ({ cuisineChange, searchChange }) => {
     const categories = [
         {'name': 'Dining'},
         {'name': 'Take-Away'},
@@ -36,7 +36,7 @@ const SearchBox = ({ searchfield, searchChange }) => {
                         }
                         {
                             categories.map( (item, i) => {
-                                console.log(item)
+                                // console.log(item)
                                 return (
                                     <Checkbox
                                         key={item.name}
@@ -59,11 +59,12 @@ const SearchBox = ({ searchfield, searchChange }) => {
                         }
                         {
                             cuisines.map( (item, i) => {
-                                console.log(item)
+                                // console.log(item)
                                 return (
                                     <Checkbox
                                         key={item}
                                         name={item}
+                                        onChange={cuisineChange}
                                     />
                                 )
                             })

@@ -16,18 +16,36 @@ class App extends Component {
     }
   }
 
+  onSearchChange = (event) => {
+    this.setState({ searchfield: event.target.value })
+  }
+
+  onCuisineChange = (event) => {
+    console.log('on:', event.target.value);
+    this.setState({ searchcuisine: event.target.value })
+  }
+
   render() {
-    const restaurant = this.state.restaurants[0];
-    const filteredRestaurants = this.state.restaurants;
+    const selectedRestaurant = this.state.restaurants[0];
+    // console.log(selectedRestaurant);
+    const filteredRestaurants = this.state.restaurants.filter(restaurant =>{
+      // console.log('here', restaurant.restaurant.name);
+      console.log('searchcuisine', this.state.searchcuisine.toLowerCase());
+      return restaurant.restaurant.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+              && restaurant.restaurant.cuisines.toLowerCase().includes(this.state.searchcuisine.toLowerCase());
+    });
     // console.log(filteredRestaurants);
     return (
       <div className="App">
         <header className="App-header">
-          <SearchBox searchChange={this.onSearchChange} />
+          <SearchBox
+            searchChange={this.onSearchChange}
+            cuisineChange={this.onCuisineChange}
+            />
         </header>
         <main className="App-main">
           <CardList restaurants={filteredRestaurants} />
-          <DetailView restaurants={restaurant} />
+          <DetailView restaurants={selectedRestaurant} />
         </main>
         <footer className="App-footer">
           <p>by Nick Welsh</p>
@@ -42,5 +60,6 @@ export default App;
 
 //TODO: x display cards with some data
 // x style cards
+// get more filters working
 // create fetch request to get data direct from API
 // store data in local storage to reduce API requests

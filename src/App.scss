@@ -40,6 +40,10 @@ fieldset {
   color: white;
 }
 
+.CardList {
+  overflow-y: scroll;
+}
+
 .three-columns {
   // -webkit-column-count: 2; /* Chrome, Safari, Opera */
   // -moz-column-count: 2; /* Firefox */

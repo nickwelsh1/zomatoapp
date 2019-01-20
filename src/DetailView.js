@@ -5,9 +5,9 @@ const DetailView = ({ restaurant }) => {
     return (
         <div className="DetailView">
             {
-                console.log(restaurant)
+                // console.log(restaurant)
             }
-            <div className="">
+            <div className="fl w-70-ns vh-100 vh-75-ns pa2 bg-white black-80">
                 <div className='tc br3 ma2 bw2'>
                     <p>test DetailView</p>
                     {/* <p>{restaurant.id}</p>
