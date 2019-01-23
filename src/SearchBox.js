@@ -3,7 +3,8 @@ import Checkbox from './Checkbox';
 
 
 
-const SearchBox = ({ cuisineChange, searchChange }) => {
+const SearchBox = ({ handleChange }) => {
+
     const categories = [
         {'name': 'Dining'},
         {'name': 'Take-Away'},
@@ -12,17 +13,17 @@ const SearchBox = ({ cuisineChange, searchChange }) => {
     ];
 
     const cuisines = [
-        'Cafe Food',
-        'Coffee and Tea',
-        'Pizza',
-        'Fast Food',
-        'Asian',
-        'Bakery',
-        'Italian',
-        'Sandwich',
-        'Chinese',
-        'Pub Food',
-        'Other'
+        {'Cafe Food': 'false'},
+        {'Coffee and Tea': 'false'},
+        {'Pizza': 'false'},
+        {'Fast Food': 'false'},
+        {'Asian': 'false'},
+        {'Bakery': 'false'},
+        {'Italian': 'false'},
+        {'Sandwich': 'false'},
+        {'Chinese': 'false'},
+        {'Pub Food': 'false'},
+        {'Other': 'false'}
     ];
 
     return (
@@ -41,6 +42,8 @@ const SearchBox = ({ cuisineChange, searchChange }) => {
                                     <Checkbox
                                         key={item.name}
                                         name={item.name}
+                                        inputGroup="category"
+                                        handleChange={handleChange}
                                     />
                                 )
                             })
@@ -59,12 +62,15 @@ const SearchBox = ({ cuisineChange, searchChange }) => {
                         }
                         {
                             cuisines.map( (item, i) => {
-                                // console.log(item)
+                                const name = Object.keys(item)
+                                // console.log(Object.keys(item))
                                 return (
                                     <Checkbox
-                                        key={item}
-                                        name={item}
-                                        onChange={cuisineChange}
+                                        key={name}
+                                        name={name}
+                                        defaultChecked={item.value}
+                                        inputGroup="cuisine"
+                                        handleChange={handleChange}
                                     />
                                 )
                             })
@@ -76,15 +82,16 @@ const SearchBox = ({ cuisineChange, searchChange }) => {
                 <fieldset id="sliders">
                     <div className="fl w-100">
                         <legend className="fw7 mb2">Rating</legend>
-                        <input className="w-100" type="range" id="start" name="rating" min="0" max="5"></input>
+                        <input className="w-100" type="range" id="start" name="rating" inputGroup="rating" onChange={handleChange} min="0" max="5"></input>
                         <p className="tl fl w-50">0</p> <p className="tr fl w-50">5</p>
                         <legend className="fw7 mb2">Cost</legend>
-                        <input className="w-100" type="range" id="start" name="cost" min="0" max="4"></input>
+                        <input className="w-100" type="range" id="start" name="cost" inputGroup="cost" onChange={handleChange} min="0" max="4"></input>
                         <input
                             className='cf'
                             type='search'
+                            name='textSearch'
                             placeholder='search restaurants'
-                            onChange={searchChange}
+                            onChange={handleChange}
                             />
                     </div>
                 </fieldset>
