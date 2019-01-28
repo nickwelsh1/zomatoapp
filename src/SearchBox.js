@@ -3,13 +3,13 @@ import Checkbox from './Checkbox';
 
 
 
-const SearchBox = ({ handleChange }) => {
+const SearchBox = ({ handleChange, appState }) => {
 
     const categories = [
-        {'name': 'Dining'},
-        {'name': 'Take-Away'},
-        {'name': 'Delivery'},
-        {'name': 'Pubs & Bars'}
+        {'Dining': 'false'},
+        {'Take-Away': 'false'},
+        {'Delivery': 'false'},
+        {'Pubs & Bars': 'false'}
     ];
 
     const cuisines = [
@@ -37,11 +37,13 @@ const SearchBox = ({ handleChange }) => {
                         }
                         {
                             categories.map( (item, i) => {
+                                const name = Object.keys(item)
                                 // console.log(item)
                                 return (
                                     <Checkbox
-                                        key={item.name}
-                                        name={item.name}
+                                        key={name}
+                                        name={name}
+                                        defaultChecked={item.value}
                                         inputGroup="category"
                                         handleChange={handleChange}
                                     />
@@ -82,10 +84,30 @@ const SearchBox = ({ handleChange }) => {
                 <fieldset id="sliders">
                     <div className="fl w-100">
                         <legend className="fw7 mb2">Rating</legend>
-                        <input className="w-100" type="range" id="start" name="rating" inputGroup="rating" onChange={handleChange} min="0" max="5"></input>
+                        <input
+                            className="w-100"
+                            type="range"
+                            id="start"
+                            name="rating"
+                            inputGroup="rating"
+                            onChange={handleChange}
+                            min="0"
+                            max="5"
+                            value={appState.searchrating}>
+                        </input>
                         <p className="tl fl w-50">0</p> <p className="tr fl w-50">5</p>
                         <legend className="fw7 mb2">Cost</legend>
-                        <input className="w-100" type="range" id="start" name="cost" inputGroup="cost" onChange={handleChange} min="0" max="4"></input>
+                        <input
+                            className="w-100"
+                            type="range"
+                            id="start"
+                            name="cost"
+                            inputGroup="cost"
+                            onChange={handleChange}
+                            min="0"
+                            max="4"
+                            value={appState.searchcost}>
+                        </input>
                         <input
                             className='cf'
                             type='search'

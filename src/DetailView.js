@@ -12,6 +12,9 @@ const DetailView = ({ restaurant }) => {
                     <h3>test DetailView</h3>
                     <p>{restaurant.id}</p>
                     <p>{restaurant.name}</p>
+                    <p>{restaurant.location.address}</p>
+                    <p>{restaurant.cuisines}</p>
+                    <img src={restaurant.thumb} alt={restaurant.name} />
                 </div>
             </div>
         </div>
