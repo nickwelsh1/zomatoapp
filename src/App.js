@@ -112,7 +112,7 @@ class App extends Component {
           </form>
         </header>
         <main className="App-main">
-          <CardList restaurants={filteredRestaurants} />
+          <CardList restaurants={filteredRestaurants} onChange={this.onHandleChange} />
           <DetailView restaurant={selectedRestaurant.restaurant} />
         </main>
         <footer className="App-footer">

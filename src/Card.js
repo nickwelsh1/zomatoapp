@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Card = ({count, name, keyshow}) => { //destructuring to create simple properties
+const Card = ({count, name, onHandleChange, keyshow}) => { //destructuring to create simple properties
     return (
-        <div className='tc bg-dark-blue br3 pa1 grow bw2 shadow-5'>
-            {/* <p>{count}</p> */}
-            <p>{name}</p>
-            {/* <p>{keyshow}</p> */}
-        </div>
+        <button className='Card   tc w-100 black-80 bg-light-gray pa1'
+            name='cardbutton'
+            onClick={onHandleChange}
+            title={name} >
+            <p className=''>{name}</p>
+        </button>
     );
 }
 

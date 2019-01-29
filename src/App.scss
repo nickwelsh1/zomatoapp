@@ -44,6 +44,15 @@ fieldset {
   overflow-y: scroll;
 }
 
+.Card {
+  border: none;
+  border-bottom: 1px solid #999;
+  &:hover {
+    background-color: rgb(65, 223, 223);
+    color: #fff;
+  }
+}
+
 .three-columns {
   // -webkit-column-count: 2; /* Chrome, Safari, Opera */
   // -moz-column-count: 2; /* Firefox */
