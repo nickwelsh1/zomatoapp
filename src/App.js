@@ -57,7 +57,7 @@ class App extends Component {
     'restaurant': {
        'name':'empty',
         'id':'',
-        'thumb':'empty.gif',
+        'thumb':'',
         'location': {
            'name':''
           },
@@ -66,100 +66,76 @@ class App extends Component {
   };
 
 
-  // method() {
-    //     // this.props.object.key is an empty array, but is overriden
-    //     // with a value later after completion of the reducer
-    //     // (trigerred asynchronously)
-    //     this.props.object.key.map(doSomething);
-    // }
-
-    // initRestaurants = () => {
-    //   let result;
-    //   if(typeof restaurants == 'undefined') {
-    //     result = 'not available';
-    //     console.log('aaa');
-    //   } else {
-    //     // result = restaurants.restaurants;
-    //     console.log('bbb');
-    //   }
-    //   return result;
-    // }
+  constructor() {
+    super()
+    this.state = {
+      restaurants: emptyrestaurants.restaurants,
+      searchcategory: '',
+      searchcuisine: '',
+      searchrating: '0',
+      searchcost: '4',  //4 is max
+      complete: 'true',
+      searchfield: '',
+      selectedRestaurant: App.defaultProps
+    };
+    this.onHandleChange = this.onHandleChange.bind(this);
+  }
 
 
-    constructor() {
-      super()
-      this.state = {
-        restaurants: emptyrestaurants.restaurants,
-        searchcategory: '',
-        searchcuisine: '',
-        searchrating: '0',
-        searchcost: '4',  //4 is max
-        complete: 'true',
-        searchfield: '',
-        selectedRestaurant: App.defaultProps
-      };
-      this.onHandleChange = this.onHandleChange.bind(this);
+  componentDidMount() {
+
+    //      here we fetch from zomato api only if we don't have a local storage cache
+    //      to keep API requests low per user
+
+    // read from local storage cache if it exists
+    const cache_asJSON = JSON.parse( localStorage.getItem('zomatoDataCache') );
+    // if no local storage cache then fetch
+    if (cache_asJSON === null ) {
+        const requestHeader = {
+          method: "GET", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              "user-key": "3d9dc5a9adc4eb89fc1b7ebcef7f5ab7"
+          },
+        }
+
+        const apiurl = 'https://developers.zomato.com/api/v2.1/';
+        const parameters = 'search?count=20&lat=35.0004435&lon=138.3302885&radius=25000&category=1%2C%202%2C%205%2C%2011&sort=real_distance&order=asc';
+        // do fetch
+        // https://developers.zomato.com/api/v2.1/search?q=italian&count=10&lat=-35.0004435&lon=138.3302885&sort=rating&order=desc
+        fetch(apiurl + parameters, requestHeader)
+            .then(response=> {
+                return response.json();
+            })
+            .then(restaurants => {
+                console.log('fetched restaurants: ', restaurants);
+                // after fetch write response to local storage cache
+                const cache_asString = JSON.stringify(restaurants);
+                localStorage.setItem('zomatoDataCache', cache_asString);
+                console.log('wrote cache to localstorage');
+                // write data to react state
+
+                this.setState({ restaurants: restaurants.restaurants});
+            })
+    } else {
+        console.log('found localstorage.');
+        this.setState( cache_asJSON );
+        // console.log('this state ', this.state);
     }
+  }
 
 
-    componentDidMount() {
-
-      //      here we fetch from zomato api only if we don't have a local storage cache
-      //      to keep API requests low per user
-
-      // read from local storage cache if it exists
-      const cache_asJSON = JSON.parse( localStorage.getItem('zomatoDataCache') );
-      // if no local storage cache then fetch
-      if (cache_asJSON === null ) {
-          const requestHeader = {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "user-key": "3d9dc5a9adc4eb89fc1b7ebcef7f5ab7"
-            },
-          }
-
-          const apiurl = 'https://developers.zomato.com/api/v2.1/';
-          const parameters = 'search?count=20&lat=35.0004435&lon=138.3302885&radius=25000&category=1%2C%202%2C%205%2C%2011&sort=real_distance&order=asc';
-          // do fetch
-          // https://developers.zomato.com/api/v2.1/search?q=italian&count=10&lat=-35.0004435&lon=138.3302885&sort=rating&order=desc
-          fetch(apiurl + parameters, requestHeader)
-              .then(response=> {
-                  return response.json();
-              })
-              .then(restaurants => {
-                  console.log('fetched restaurants: ', restaurants);
-                  // after fetch write response to local storage cache
-                  const cache_asString = JSON.stringify(restaurants);
-                  localStorage.setItem('zomatoDataCache', cache_asString);
-                  console.log('wrote cache to localstorage');
-                  // write data to react state
-
-                  this.setState({ restaurants: restaurants.restaurants});
-              })
-      } else {
-          console.log('found localstorage.');
-          this.setState( cache_asJSON );
-          // console.log('this state ', this.state);
-      }
-    }
-
-
-  // utility function to test keys in an object
-  // get = function(obj, key) {
-  //   return key.split(".").reduce(function(o, x) {
-  //       return (typeof o == "undefined" || o === null) ? o : o[x];
-  //   }, obj);
-  // }
-
+  onHandleButton = (name) => {
+    console.log('name: ', name);
+  }
 
   onHandleChange = (event) => {
     console.log([event.target]);
     console.log([event.target.name]);
-    console.log(event.target.name);
-    console.log(event.target.value);
-    console.log(event.target.checked);
+    console.log('event.target.name: ', event.target.name);
+    console.log('event.target.value: ', event.target.value);
+    console.log('event.target.checked: ', event.target.checked);
 
     this.setState({ [event.target.name]: event.target.value })
 
@@ -168,6 +144,7 @@ class App extends Component {
     } else
     if (event.target.name === 'cuisine'){ //cuisine event
       if (event.target.checked === true) {
+        console.log('good?');
         this.setState({ searchcuisine: event.target.value })
       } else
       if (event.target.checked === false) {
@@ -199,6 +176,7 @@ class App extends Component {
       // NOTE: category is not in restaurant data, we may need to get it with aditional API requests
       //
       // for cost show all less than slider mark? what if 0? or show only those in category and for 0 showAll?
+      console.log('state searchcuisine', this.state.searchcuisine.toLowerCase());
       return restaurant.restaurant.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
       && restaurant.restaurant.cuisines.toLowerCase().includes(this.state.searchcuisine.toLowerCase())
       && (parseFloat( restaurant.restaurant.user_rating.aggregate_rating ) >= parseFloat( this.state.searchrating ))
@@ -216,12 +194,12 @@ class App extends Component {
           <form>
             <SearchBox
               handleChange={this.onHandleChange}
-              appState={this.state}
+              appState='test' //{this.state}
               />
           </form>
         </header>
         <main className="App-main">
-          <CardList restaurants={filteredRestaurants} onChange={this.onHandleChange} />
+          <CardList restaurants={filteredRestaurants} onHandleButton={this.onHandleButton} />
           <DetailView restaurant={selectedRestaurant.restaurant || App.defaultProps} />
         </main>
         <footer className="App-footer">

@@ -44,7 +44,7 @@ const SearchBox = ({ handleChange, appState }) => {
                                         key={name}
                                         name={name}
                                         defaultChecked={item.value}
-                                        inputgroup="category"
+                                        inputGroup="categories"
                                         handleChange={handleChange}
                                     />
                                 )
@@ -71,7 +71,7 @@ const SearchBox = ({ handleChange, appState }) => {
                                         key={name}
                                         name={name}
                                         defaultChecked={item.value}
-                                        inputgroup="cuisine"
+                                        inputGroup="cuisine"
                                         handleChange={handleChange}
                                     />
                                 )
@@ -93,7 +93,7 @@ const SearchBox = ({ handleChange, appState }) => {
                             onChange={handleChange}
                             min="0"
                             max="5"
-                            value={appState.searchrating}>
+                            value={appState.searchrating} >
                         </input>
                         <p className="tl fl w-50">0</p> <p className="tr fl w-50">5</p>
                         <legend className="fw7 mb2">Cost</legend>
@@ -106,7 +106,7 @@ const SearchBox = ({ handleChange, appState }) => {
                             onChange={handleChange}
                             min="0"
                             max="4"
-                            value={appState.searchcost}>
+                            value={appState.searchcost} >
                         </input>
                         <input
                             className='cf'

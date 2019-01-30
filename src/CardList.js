@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const CardList = ({ restaurants, onChange }) => {
+const CardList = ({ restaurants, onChange: onHandleButton }) => {
     // console.log(restaurants);
     return (
         <div className="CardList fl w-30-ns vh-75-ns">
@@ -19,7 +19,7 @@ const CardList = ({ restaurants, onChange }) => {
                                 keyshow={arestaurant.id.toString()}
                                 count={i+1}
                                 name={arestaurant.name}
-                                onHandleChange={onChange}
+                                onHandleChange={onHandleButton}
                             />
                         </div>
                     )

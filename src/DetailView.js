@@ -1,4 +1,5 @@
 import React from 'react';
+import emptyimage from './images/empty.gif';
 
 const DetailView = ({ restaurant }) => {
     // console.log(restaurants);
@@ -14,7 +15,7 @@ const DetailView = ({ restaurant }) => {
                     <p>{restaurant.name}</p>
                     <p>{restaurant.location.address}</p>
                     <p>{restaurant.cuisines}</p>
-                    <img src={restaurant.thumb} alt={restaurant.name} />
+                    <img src={restaurant.thumb || emptyimage} alt={restaurant.name} />
                 </div>
             </div>
         </div>
