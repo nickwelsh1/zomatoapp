@@ -17,7 +17,7 @@ const emptyrestaurants = {
         "name": "empty",
         "url": "",
         "location": {
-          "address": "",
+          "address": "no address",
           "locality": "City Centre",
           "city": "Adelaide",
           "city_id": 297,
@@ -53,17 +53,18 @@ const emptyrestaurants = {
 
 class App extends Component {
 
-  static defaultProps = {
-    'restaurant': {
-       'name':'empty',
-        'id':'',
-        'thumb':'',
-        'location': {
-           'name':''
-          },
-        'cuisines':''
-      }
-  };
+  // static defaultProps = {
+  //   'restaurant': {
+  //      'name':'empty',
+  //       'id':'',
+  //       'thumb':'',
+  //       'location': {
+  //          'name':'',
+  //          'address':'',
+  //         },
+  //       'cuisines':''
+  //     }
+  // };
 
 
   constructor() {
@@ -76,9 +77,10 @@ class App extends Component {
       searchcost: '4',  //4 is max
       complete: 'true',
       searchfield: '',
-      selectedRestaurant: App.defaultProps
+      selectedRestaurantName: 'empty'
     };
     this.onHandleChange = this.onHandleChange.bind(this);
+    this.onHandleButton = this.onHandleButton.bind(this);
   }
 
 
@@ -126,8 +128,15 @@ class App extends Component {
   }
 
 
-  onHandleButton = (name) => {
-    console.log('name: ', name);
+  onHandleButton = (event) => {
+    // console.log('event: ', event);
+    // console.log([event.target]);
+    console.log('event.target.name: ', event.target.name);  // cardbutton
+    // console.log('event.currentTarget ', event.currentTarget);  //button element
+    console.log('event.target.id: ', event.target.id);
+    this.setState({ [event.target.name]: event.target.id })
+    this.setState({ selectedRestaurantName: event.target.id })
+
   }
 
   onHandleChange = (event) => {
@@ -136,6 +145,8 @@ class App extends Component {
     console.log('event.target.name: ', event.target.name);
     console.log('event.target.value: ', event.target.value);
     console.log('event.target.checked: ', event.target.checked);
+    console.log('event.type ', event.type);
+    console.log('event.native ', event.native); // undefined
 
     this.setState({ [event.target.name]: event.target.value })
 
@@ -182,12 +193,30 @@ class App extends Component {
       && (parseFloat( restaurant.restaurant.user_rating.aggregate_rating ) >= parseFloat( this.state.searchrating ))
       && (parseFloat( restaurant.restaurant.price_range ) <= parseFloat( this.state.searchcost ));
     });
-    console.log('filteredRestaurants: ', filteredRestaurants);
-    let selectedRestaurant = this.state.selectedRestaurant;
 
-    if(filteredRestaurants.length > 0) {  // temporary method for testing
-      selectedRestaurant = filteredRestaurants[0]; //this.get( filteredRestaurants[0], 'restaurant.name' );
-    }
+    console.log('filteredRestaurants: ', filteredRestaurants);
+
+    console.log('this.state.selectedRestaurantName: ', this.state.selectedRestaurantName);
+
+    // let selectedRestaurant = {};
+    const selectedRestaurantBoolean = this.state.restaurants.filter(restaurant =>{
+      const result = restaurant.restaurant.name.toLowerCase().includes(this.state.selectedRestaurantName.toLowerCase());
+      console.log('App result: ', result);
+      return result;
+    });
+    const selectedRestaurant = selectedRestaurantBoolean.map((item) => {
+      console.log('item:', item);
+      return item;
+    });
+
+    const noSelectedRestaurant = emptyrestaurants.restaurants;
+
+    console.log('App noSelectedRestaurant: ', noSelectedRestaurant[0]);
+    console.log('App selectedRestaurantnt: ', selectedRestaurant[0]);
+
+    // if(filteredRestaurants.length > 0) {  // temporary method for testing
+    //   selectedRestaurant = filteredRestaurants[0]; //this.get( filteredRestaurants[0], 'restaurant.name' );
+    // }
     return (
       <div className="App">
         <header className="App-header">
@@ -199,15 +228,18 @@ class App extends Component {
           </form>
         </header>
         <main className="App-main">
-          <CardList restaurants={filteredRestaurants} onHandleButton={this.onHandleButton} />
-          <DetailView restaurant={selectedRestaurant.restaurant || App.defaultProps} />
+          <CardList
+            restaurants={filteredRestaurants}
+            onHandleButton={this.onHandleButton}
+            />
+          <DetailView restaurant={selectedRestaurant[0] || noSelectedRestaurant[0]} />
         </main>
         <footer className="App-footer">
           <p>by Nick Welsh</p>
         </footer>
       </div>
     );
-  }
+  } //selectedRestaurant.restaurant    // || App.defaultProps
 }
 
 export default App;
@@ -216,7 +248,10 @@ export default App;
 //TODO: x display cards with some data
 // x style cards
 // finish filters
-// modify fetch request to also be able to get categories data from API, join data from multiple category searches
+//    categories
+//    multiple checkboxes
+// modify fetch request to also be able to get categories & restaurant data from API, join data from multiple category searches
+// TODO: something funny about API's location response. It's returning restaurants outside of SA
 // x store data in local storage to reduce API requests
 // finish detail view
-// polish (opengraph?, analytics?, accesibility, cross browser test, mobile UX improvements)
+// polish (analytics?, accesibility, cross browser test, mobile UX improvements)
